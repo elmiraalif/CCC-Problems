@@ -1,0 +1,74 @@
+<!-- Problem 2: Epidemiology (2020) -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Epidemiology</title>
+  </head>
+  <body>
+    <!-- a heading element to display the result -->
+    <h1></h1>
+
+    <div>
+      <!-- an input for P -->
+      <label>Maximum Number of People to be infected (P):</label>
+      <input type="number" min="0" placeholder="Positive Integer" />
+    </div>
+    <div>
+      <label>People Infected on Day 0 (N):</label>
+      <input type="number" min="0" placeholder="Positive Integer" />
+    </div>
+    <div>
+      <label>People Infected on the other Next Day (R)</label>
+      <input type="number" min="0" max="10" placeholder="Positive Integer" />
+    </div>
+    <button type="button">Submit</button>
+
+    <script type="text/javascript">
+      // 1. Get the elements from DOM
+      var heading = document.querySelector("h1");
+      var submitButton = document.querySelector("button");
+
+      submitButton.addEventListener("click", () => {
+        // get the input elements from the DOM:
+        // P: maximum number of people being infected,
+        // N: # of people infected on day 0
+        // R: # of people infected on the next day -> /n < P & R <= 10
+        var p = Number(document.querySelectorAll("input")[0].value);
+        var n = Number(document.querySelectorAll("input")[1].value);
+        var r = Number(document.querySelectorAll("input")[2].value);
+
+        // a debugging line to get the type of the inputs, so I converted them to numbers
+        // console.log(typeof p); -> expected: Number result: String
+
+        //Showing the result by execute the showDay function with the input values
+        heading.innerHTML = "On day " + showDay(p, n, r) + ", the number of people exceeds the maximum number.";
+      });
+
+      function showDay(maximumNumber, infectedOnDay0, infectedNextDayByEachPerson) {
+        // On Day 0, the total number of infected people equals to the exact number infected on day 0
+        var day = 0;
+        var totalInfected = infectedOnDay0;
+
+        // As long as the total number of infected people is less than the maximum number, try the loop
+        while (totalInfected <= maximumNumber) {
+          // we change the number of day 0 infected people
+          // by multiplying to the number of those who got infected by exactly one person
+          // by each person
+          infectedOnDay0 *= infectedNextDayByEachPerson;
+          // then we add to the number of total infected by adding the number in each day
+          totalInfected += infectedOnDay0;
+          // iterate through days one by one
+          day++;
+        }
+        return day;
+      }
+      //   expected: 5
+      console.log(showDay(10, 2, 1));
+      //   expected: 4
+      console.log(showDay(750, 1, 5));
+    </script>
+  </body>
+</html>

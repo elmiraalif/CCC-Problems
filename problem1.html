@@ -1,0 +1,64 @@
+<!-- Problem 1: Dog Treats (2020) -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dog Treats</title>
+  </head>
+  <body>
+    <!-- 1. First we need an empty heading to show the result -->
+    <h1></h1>
+    <!-- 2. 3 different inputs for the user to add the number of treats by their size -->
+    <div>
+      <label>Small Treats:</label>
+      <input type="number" placeholder="Small Treats" />
+    </div>
+    <div>
+      <label>Medium Treats</label>
+      <input type="number" placeholder="Medium Treats" />
+    </div>
+    <div>
+      <label>Large treats</label>
+      <input type="number" placeholder="Large Treats" />
+    </div>
+    <!-- 3. A button to perform whatever we need
+    - we add an event listener to this element, the listener waits until we call it (By clicking) -->
+    <button type="button">Result</button>
+
+    <!-- 4. Script tag for the javascript codes to operate -->
+    <script type="text/javascript">
+      // 5. get the heading element from the DOM that shows the result
+      var heading = document.querySelector("h1");
+      // 6. Get the button element in DOM
+      var resultButton = document.querySelector("button");
+
+      // 7.handle the Result button action
+      // when the button is clicked, do the anonymous function's action
+      resultButton.addEventListener("click", () => {
+        // 8. get the user's inputs
+        // The inputs are of the type String, we need to turn them into numbers to get calculated
+        var smallTreats = document.querySelectorAll("input")[0].value;
+        var mediumTreats = document.querySelectorAll("input")[1].value;
+        var largeTreats = document.querySelectorAll("input")[2].value;
+
+        // 10. set the heading value to happinessStatus function returned value
+        heading.innerHTML = happinessStatus(smallTreats, mediumTreats, largeTreats);
+      });
+
+      // 9. function to return the happiness status based on the number of all treats
+      // if the total score is greater than or equal to 10 -> return "Happy", otherwise "sad"
+      function happinessStatus(num1, num2, num3) {
+        var happinessScore = num1 + 2 * num2 + 3 * num3;
+        if (happinessScore >= 10) {
+          return "Happy :)";
+        } else {
+          return "Sad :(";
+        }
+      }
+      // a testing example
+      // console.log(happinessStatus(2, 4, 9)); expected: Happy
+    </script>
+  </body>
+</html>

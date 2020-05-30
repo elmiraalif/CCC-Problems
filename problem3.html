@@ -1,0 +1,69 @@
+<!-- Problem 2: Don't pass me the ball (2012) -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Don't pass me the ball</title>
+  </head>
+  <body>
+    <!-- 1. Display the result -->
+    <h1></h1>
+    <!-- 2. Input field for the jersey number -->
+    <div>
+      <label>Jersey Number:</label>
+      <input type="number" min="1" max="99" />
+    </div>
+    <button>Calculate</button>
+    <script type="text/javascript">
+      // 3. get the elements from DOM
+      var heading = document.querySelector("h1");
+      var button = document.querySelector("button");
+
+      // 4. Handle the clicked button action
+      button.addEventListener("click", () => {
+        // 5. get the user's input
+        var jerseyNumber = Number(document.querySelector("input").value);
+        // 11. SHow the result inside the html
+        heading.innerHTML = calculateCombinations(jerseyNumber) + " Possible combinations of players can produce a valid goal.";
+      });
+
+      // 6. The possible way of dividing r items from n number is
+      //  to calculate the possible combinations of r items from n items
+      // nCr = n! / r! * (n - r)!
+      // We assume r is 4, and n is the jersey number
+      function calculateCombinations(num) {
+        //7. technically, It's impossible to choose let's say 5 items from 4 items
+        // , so the possibility is 0
+        if (num < 4) {
+          return 0;
+        }
+        //9. the possible combinations for choosing 4 items from the total number (the highest: jersey Number) is:
+        var combinations = factorial(num) / (factorial(num - 4) * factorial(4));
+        // 10. we want the floor of this possibility to turn it into an integer
+        return Math.floor(combinations);
+      }
+      // expected: 1
+      // console.log(calculateCombinations(4));
+
+      // 8. to calculate the factorial of each number:
+      // Ex. 4! = 4 * 3 * 2 * 1
+      function factorial(num) {
+        // we know that 1! = 1, 0! = 1
+        if (num === 1 || num === 0) {
+          return 1;
+        } else {
+          // recursive function: calls itself until it reaches the number 1
+          /* ex. 4! = 4 * 3!
+                    ...
+                    4! = 4 * 3 * ... * 1!
+                    */
+          return num * factorial(num - 1);
+        }
+      }
+      // expected: 24
+      // console.log(factorial(4));
+    </script>
+  </body>
+</html>
